@@ -1,0 +1,40 @@
+{
+  "name": "susi_magicmirror",
+  "version": "0.1.0",
+  "description": "A Magic Mirror module for Susi",
+  "main": "susi_magicmirror.js",
+  "scripts": {
+    "test": "npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fossasia/susi_magicmirror.git"
+  },
+  "keywords": [
+    "Susi",
+    "AI",
+    "Artificial Intelligence",
+    "Magic Mirror"
+  ],
+  "author": "betterclever",
+  "license": "LGPL-2.1",
+  "bugs": {
+    "url": "https://github.com/fossasia/susi_magicmirror/issues"
+  },
+  "homepage": "https://github.com/fossasia/susi_magicmirror#readme",
+  "dependencies": {
+    "@types/node": "^8.0.2",
+    "@types/request": "0.0.44",
+    "@types/timer-machine": "^1.1.0",
+    "request": "^2.81.0",
+    "rxjs": "^5.4.1",
+    "timer-machine": "^1.1.0"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.1.3",
+    "brfs": "^1.4.3",
+    "electron-rebuild": "^1.5.11",
+    "typescript": "^2.3.4",
+    "webpack": "^3.0.0"
+  }
+}
