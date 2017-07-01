@@ -8,7 +8,7 @@ const Main = require("./dist/main/index.js");
 
 let main;
 
-process.env.CWD = `${process.env.PWD}/modules/susi_magicmirror`;
+process.env.CWD = `${process.env.PWD}/modules/MMM-SUSI-AI`;
 
 module.exports = NodeHelper.create({
 

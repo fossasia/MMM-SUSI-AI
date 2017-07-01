@@ -1,4 +1,4 @@
-# susi_magicmirror
+# Susi Magic Mirror Module
 
 SUSI.AI Module for Magic Mirror Project
 
@@ -32,7 +32,7 @@ Susi will reply back with answer. Notably,
 This will start Magic Mirror with basic modules on your screen.
 
 ## Install Susi Module to 
-- Go to modules directory and clone Susi MagicMirror, my repo
+- Go to modules directory in Magic Mirror project folder and clone Susi MagicMirror repository
 ``` git clone https://github.com/fossasia/MMM-SUSI-AI.git```
 - Go to susi_magic mirror directory, run ```npm install```
 - Also run, ```npm run electron-rebuild```
@@ -43,7 +43,7 @@ This will start Magic Mirror with basic modules on your screen.
 - Add following to modules JSON array to enable Susi Module,
 ```
 {
-	module: "susi_magicmirror",
+	module: "MMM-SUSI-AI",
 	position: "top_center",
 	config: {
 	    hotword: "Susi"

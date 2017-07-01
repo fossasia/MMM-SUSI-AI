@@ -20,16 +20,15 @@ export class BingRecognizer {
     private subscriptionKey: string;
 
     private token: string;
-    private tokenExpirationDate: number;
 
     constructor(subscriptionKey: string) {
         this.subscriptionKey = subscriptionKey;
     }
 
     private issueToken(): Promise<string> {
-        if (this.token && this.tokenExpirationDate > Date.now()) {
-            return Promise.resolve(this.token);
-        }
+        // if (this.token && this.tokenExpirationDate > Date.now()) {
+        //     return Promise.resolve(this.token);
+        // }
 
         let options = {
             method: 'POST',
@@ -60,7 +59,7 @@ export class BingRecognizer {
             .then((token: string) => {
 
                 this.token = token;
-                this.tokenExpirationDate = Date.now() + 9 * 60 * 1000;
+                //this.tokenExpirationDate = Date.now() + 9 * 60 * 1000;
 
                 let params = {
                     'language': 'en-us',
@@ -88,16 +87,14 @@ export class BingRecognizer {
                         )
                         .catch((error: Error) => {
                             console.log("An Error Occurred!");
-                            return reject("I can't connect at the moment !!");
+                            return reject("Connection Error");
                         })
                 });
 
 
-            })
-            .catch((error: Error) => {
-                console.log("An Error Occurred!");
-                console.log(error);
-                throw new Error('Failed');
-            })
+            }).catch(error =>{
+                    return "Connection Error"
+                }
+            );
     }
 }

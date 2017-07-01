@@ -2,8 +2,8 @@ export class SusiMirror {
 
     constructor(
         private mainDiv: HTMLElement,
-        canvas: HTMLCanvasElement,
-        config: Config,
+        private canvas: HTMLCanvasElement,
+        private config: Config,
         private mainSend: (event: NotificationType, payload: object) => void) {
     }
 
@@ -27,6 +27,7 @@ export class SusiMirror {
     public listening(): void {
         this.mainDiv.classList.add("wrapper-active");
         document.body.classList.add("down-size");
+
     }
 
     public idle(): void {

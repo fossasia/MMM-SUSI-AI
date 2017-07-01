@@ -9,7 +9,7 @@
 
 let susiMirror;
 
-Module.register("susi_magicmirror", {
+Module.register("MMM-SUSI-AI", {
 
 
     start: function () {

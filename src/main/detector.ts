@@ -3,8 +3,8 @@ import { Subject } from "rxjs/Subject";
 import { Detector, Models } from "snowboy";
 import * as Timer from "timer-machine";
 
-const WAIT_TIME = 400;
-const MAX_TIME = 4000;
+const WAIT_TIME = 1000;
+const MAX_TIME = 6000;
 
 export class HotwordDetector extends Detector {
     private silenceTimer = new Timer();

@@ -1,8 +1,8 @@
 {
-  "name": "susi_magicmirror",
+  "name": "MMM-SUSI-AI",
   "version": "0.1.0",
   "description": "A Magic Mirror module for Susi",
-  "main": "susi_magicmirror.js",
+  "main": "MMM-SUSI-AI.js",
   "scripts": {
     "postinstall": "npm run build",
     "build": "rimraf dist && npm run webpack && npm run tsc",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fossasia/susi_magicmirror.git"
+    "url": "git+https://github.com/fossasia/MMM-SUSI-AI.git"
   },
   "keywords": [
     "Susi",
@@ -26,9 +26,9 @@
   "author": "betterclever",
   "license": "LGPL-2.1",
   "bugs": {
-    "url": "https://github.com/fossasia/susi_magicmirror/issues"
+    "url": "https://github.com/fossasia/MMM-SUSI-AI/issues"
   },
-  "homepage": "https://github.com/fossasia/susi_magicmirror#readme",
+  "homepage": "https://github.com/fossasia/MMM-SUSI-AI#readme",
   "dependencies": {
     "@types/node": "^8.0.2",
     "@types/request": "0.0.44",

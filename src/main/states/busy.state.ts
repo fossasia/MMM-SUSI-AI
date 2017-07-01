@@ -21,10 +21,22 @@ export class BusyState extends State {
 
         // This is my API key
         // TODO: Add API key parameter to config
-        let subscriptionKey = '9b727d5ac2294d30b7664912a20b50c8';
+        let subscriptionKey = 'bae76dc848f043a0b52a2c9c36fbaa33';
 
         this.components.recognitionService.recognizeBing(subscriptionKey, readStream).then((text) => {
             console.log("You said: " + text);
+
+            if(text == "Connection Error!!"){
+                Command(`flite -voice ${process.env.CWD}/resources/cmu_us_slt.flitevox -t "Connection Error Occurred!!" -o ${process.env.CWD}/temp/output.wav`)
+                    .then(() => {
+                            this.components.rendererSend("speak", {});
+                            debugger;
+                        }
+                    ).catch((error: Error) => {
+                    return console.log(error);
+                });
+            }
+
             this.chatAPI.askSusi(text).then((answer: any) => {
                 const expression = answer.answers[0].actions[0].expression;
                 console.log(expression);
