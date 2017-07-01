@@ -1,7 +1,7 @@
 interface Config {
-    wakeWord: string;
+    hotword: string;
 }
 
 interface UncheckedConfig {
-    wakeWord?: string;
+    hotword?: string;
 }
