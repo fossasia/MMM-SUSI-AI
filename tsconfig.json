@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "noImplicitAny": false,
+    "suppressExcessPropertyErrors": true,
+    "sourceMap": false,
+    "noStrictGenericChecks": true,
+    "outDir": "./dist",
+    "declaration": false,
+    "rootDir": "./src",
+    "lib": [
+      "dom",
+      "es7"
+    ],
+    "noUnusedLocals": false
+    // "strictNullChecks": true
+  },
+  "exclude": [
+    "./node_modules"
+  ]
+}
