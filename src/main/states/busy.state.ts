@@ -4,6 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 import {IStateMachineComponents} from "./susi-state-machine";
 import {State} from "./base.state";
 import {ChatAPI} from '../susi-api';
+import * as Command from 'command-promise'
 
 export class BusyState extends State {
     private rendererSubscription: Subscription;
@@ -27,7 +28,14 @@ export class BusyState extends State {
             this.chatAPI.askSusi(text).then((answer: any) => {
                 const expression = answer.answers[0].actions[0].expression;
                 console.log(expression);
-                //TODO: Call TTS from here
+                Command(`flite -voice ${process.env.CWD}/resources/cmu_us_slt.flitevox -t "${expression}" -o ${process.env.CWD}/temp/output.wav`)
+                    .then(() => {
+                            this.components.rendererSend("speak", {});
+                            debugger;
+                        }
+                    ).catch((error: Error) => {
+                    return console.log(error);
+                });
             })
         }).catch((error) => {
             console.log("here is the error");

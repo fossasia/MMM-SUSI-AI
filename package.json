@@ -4,7 +4,14 @@
   "description": "A Magic Mirror module for Susi",
   "main": "susi_magicmirror.js",
   "scripts": {
-    "test": "npm run lint"
+    "postinstall": "npm run build",
+    "build": "rimraf dist && npm run webpack && npm run tsc",
+    "webpack": "webpack --config config/webpack.main.js --progress --profile --bail --display-error-details",
+    "test": "npm run lint",
+    "electron-rebuild": "electron-rebuild --pre-gyp-fix",
+    "lint": "tslint --project .",
+    "tsc": "tsc -p . ",
+    "node-pre-gyp": "node-pre-gyp clean configure build"
   },
   "repository": {
     "type": "git",
@@ -26,6 +33,7 @@
     "@types/node": "^8.0.2",
     "@types/request": "0.0.44",
     "@types/timer-machine": "^1.1.0",
+    "command-promise": "^2.0.1",
     "node-record-lpcm16": "^0.3.0",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
