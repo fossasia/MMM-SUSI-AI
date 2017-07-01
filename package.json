@@ -34,10 +34,12 @@
     "@types/request": "0.0.44",
     "@types/timer-machine": "^1.1.0",
     "command-promise": "^2.0.1",
+    "nan": "^2.6.2",
     "node-record-lpcm16": "^0.3.0",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "rxjs": "^5.4.1",
+    "snowboy": "^1.2.0",
     "timer-machine": "^1.1.0",
     "web-request": "^1.0.7"
   },

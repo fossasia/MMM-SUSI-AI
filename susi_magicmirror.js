@@ -1,6 +1,5 @@
 /* global Module */
 
-import * as SusiService from "./dist/renderer/index";
 /* Magic Mirror
  * Module: Susi Magic Mirror
  *
@@ -31,7 +30,6 @@ Module.register("susi_magicmirror", {
             this.sendSocketNotification(event, payload);
         });
 
-        susiMirror.start();
         return alexaWrapper;
     },
 
