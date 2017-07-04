@@ -2,8 +2,8 @@ import * as record from "node-record-lpcm16";
 import { Subscription } from "rxjs/Subscription";
 
 import { HotwordDetector } from "../detector";
-import { IStateMachineComponents } from "./susi-state-machine";
 import { State } from "./base.state";
+import { IStateMachineComponents } from "./susi-state-machine";
 
 export class IdleState extends State {
     private detectorSubscription: Subscription;

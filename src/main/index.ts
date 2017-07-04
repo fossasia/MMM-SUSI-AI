@@ -1,8 +1,8 @@
-import {RecognitionService} from "./speech-detection-service";
-import {SusiModels} from "./models";
-import {RendererCommunicator} from "./renderer-communicator";
-import {SusiStateMachine} from "./states/susi-state-machine";
-import {ConfigService} from "./config-service";
+import { ConfigService } from "./config-service";
+import { SusiModels } from "./models";
+import { RendererCommunicator } from "./renderer-communicator";
+import { RecognitionService } from "./speech-detection-service";
+import { SusiStateMachine } from "./states/susi-state-machine";
 
 export default class Main {
     private susiStateMachine: SusiStateMachine;

@@ -1,10 +1,10 @@
+import * as Command from "command-promise";
 import * as fs from "fs";
-import {Subscription} from "rxjs/Subscription";
+import { Subscription } from "rxjs/Subscription";
 
-import {IStateMachineComponents} from "./susi-state-machine";
-import {State} from "./base.state";
-import {ChatAPI} from '../susi-api';
-import * as Command from 'command-promise'
+import { ChatAPI } from "../susi-api";
+import { State } from "./base.state";
+import { IStateMachineComponents } from "./susi-state-machine";
 
 export class BusyState extends State {
     private rendererSubscription: Subscription;
@@ -17,24 +17,23 @@ export class BusyState extends State {
 
     public onEnter(): void {
         this.components.rendererSend("busy", {});
-        let readStream = fs.createReadStream(`${process.env.CWD}/temp/for-recognition.wav`);
+        const readStream = fs.createReadStream(`${process.env.CWD}/temp/for-recognition.wav`);
 
         // This is my API key
         // TODO: Add API key parameter to config
-        let subscriptionKey = 'bae76dc848f043a0b52a2c9c36fbaa33';
+        const subscriptionKey = "bae76dc848f043a0b52a2c9c36fbaa33";
 
         this.components.recognitionService.recognizeBing(subscriptionKey, readStream).then((text) => {
             console.log("You said: " + text);
 
-            if(text == "Connection Error!!"){
+            if (text === "Connection Error!!") {
                 Command(`flite -voice ${process.env.CWD}/resources/cmu_us_slt.flitevox -t "Connection Error Occurred!!" -o ${process.env.CWD}/temp/output.wav`)
                     .then(() => {
-                            this.components.rendererSend("speak", {});
-                            debugger;
-                        }
+                        this.components.rendererSend("speak", {});
+                    }
                     ).catch((error: Error) => {
-                    return console.log(error);
-                });
+                        return console.log(error);
+                    });
             }
 
             this.chatAPI.askSusi(text).then((answer: any) => {
@@ -42,18 +41,16 @@ export class BusyState extends State {
                 console.log(expression);
                 Command(`flite -voice ${process.env.CWD}/resources/cmu_us_slt.flitevox -t "${expression}" -o ${process.env.CWD}/temp/output.wav`)
                     .then(() => {
-                            this.components.rendererSend("speak", {});
-                            debugger;
-                        }
+                        this.components.rendererSend("speak", {});
+                    }
                     ).catch((error: Error) => {
-                    return console.log(error);
-                });
-            })
+                        return console.log(error);
+                    });
+            });
         }).catch((error) => {
             console.log("here is the error");
             console.log(error);
         });
-
 
         this.rendererSubscription = this.components.rendererCommunicator.Observable.subscribe((type) => {
             if (type === "finishedSpeaking") {
