@@ -34,7 +34,7 @@ export class HotwordDetector extends Detector {
 
         this.on("sound", () => {
             this.silenceTimer.stop();
-            if(this.maxTimeTimer.timeFromStart() > MAX_TIME) {
+            if (this.maxTimeTimer.timeFromStart() > MAX_TIME) {
                 this.subject.next(DETECTOR.Silence);
             }
         });
@@ -45,7 +45,7 @@ export class HotwordDetector extends Detector {
 
         this.on("hotword", (index, hotword) => {
             console.log("hotword", index, hotword);
-            if(this.maxTimeTimer.isStarted() === false){
+            if (this.maxTimeTimer.isStarted() === false) {
                 this.maxTimeTimer.start();
             }
             this.subject.next(DETECTOR.Hotword);

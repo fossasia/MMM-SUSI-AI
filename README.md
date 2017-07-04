@@ -31,20 +31,20 @@ Susi will reply back with answer. Notably,
 
 This will start Magic Mirror with basic modules on your screen.
 
-## Install Susi Module to 
+## Install Susi Module
 - Go to modules directory in Magic Mirror project folder and clone Susi MagicMirror repository
 ``` git clone https://github.com/fossasia/MMM-SUSI-AI.git```
 - Go to susi_magic mirror directory, run ```npm install```
 - Also run, ```npm run electron-rebuild```
 - Run ./install-flite.sh to install Flite TTS Voices.
 
-## Add Susi Module
+## Add Susi Module to MagicMirror
 - Edit config/config.js in the MagicMirror directory
 - Add following to modules JSON array to enable Susi Module,
 ```
 {
 	module: "MMM-SUSI-AI",
-	position: "top_center",
+	position: "top_bar",
 	config: {
 	    hotword: "Susi"
 	}
@@ -57,7 +57,11 @@ Ask you query by voice after that, Susi will speak back the reply and Mirror Scr
 
 # Got any problems ?
 
+While running if you get a log statement mentioning SnowBoy module not found, run
+```npm run electron-rebuild```
+
 Project is still in alpha, please report an issue if you experience any problems with logs/screenshots.
+
 
 
 # Credits

@@ -1,0 +1,42 @@
+{
+  "extends": "tslint:latest",
+  "exclude": [
+    "typings"
+  ],
+  "rules": {
+    "curly": true,
+    "one-variable-per-declaration": [
+      true
+    ],
+    "no-any": false,
+    "no-consecutive-blank-lines": [
+      true
+    ],
+    "no-require-imports": true,
+    "member-access": [
+      true
+    ],
+    "indent": [
+      true,
+      "spaces"
+    ],
+    "object-literal-sort-keys": false,
+    "object-literal-shorthand": false,
+    "typedef": [
+      true,
+      "call-signature",
+      "parameter",
+      "property-declaration"
+    ],
+    "max-line-length": [
+      false
+    ],
+    "no-console": [
+      false
+    ],
+    "array-type": [
+      "array"
+    ],
+    "trailing-comma": [false, {"multiline": "never", "singleline": "never"}]
+  }
+}

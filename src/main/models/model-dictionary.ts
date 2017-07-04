@@ -1,5 +1,5 @@
 const MODELS: { [key: string]: IModelConfig } = {
-    "Susi": {
+    Susi: {
         file: "susi.pmdl",
         name: "susi",
     },

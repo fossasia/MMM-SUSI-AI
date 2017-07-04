@@ -2,8 +2,8 @@ import * as fs from "fs";
 import * as record from "node-record-lpcm16";
 import { Subscription } from "rxjs/Subscription";
 
-import { IStateMachineComponents } from "./susi-state-machine";
 import { State } from "./base.state";
+import { IStateMachineComponents } from "./susi-state-machine";
 
 export class ListeningState extends State {
     private detectorSubscription: Subscription;
@@ -14,7 +14,8 @@ export class ListeningState extends State {
 
     public onEnter(): void {
         this.components.rendererSend("listening", {});
-        const writeStream = fs.createWriteStream(`${process.env.CWD}/temp/for-recognition.wav`, {defaultEncoding: 'binary'});
+        const writeStream = fs.createWriteStream(`${process.env.CWD}/temp/for-recognition.wav`,
+            { defaultEncoding: "binary" });
 
         writeStream.on("finish", () => {
             this.transition(this.allowedStateTransitions.get("busy"));

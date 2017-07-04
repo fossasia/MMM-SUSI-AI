@@ -1,13 +1,14 @@
 import { Mic } from "node-record-lpcm16";
 import { Models } from "snowboy";
-import { RecognitionService } from '../speech-detection-service';
-import { HotwordDetector } from "../detector"
+
+import { ConfigService } from "../config-service";
+import { HotwordDetector } from "../detector";
 import { RendererCommunicator } from "../renderer-communicator";
+import { RecognitionService } from "../speech-detection-service";
 import { State } from "./base.state";
 import { BusyState } from "./busy.state";
 import { IdleState } from "./idle.state";
 import { ListeningState } from "./listening.state";
-import {ConfigService} from "../config-service";
 
 export interface IStateMachineComponents {
     detector?: HotwordDetector;
