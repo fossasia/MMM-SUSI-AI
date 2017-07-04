@@ -1,14 +1,21 @@
 {
-  "name": "susi_magicmirror",
+  "name": "MMM-SUSI-AI",
   "version": "0.1.0",
   "description": "A Magic Mirror module for Susi",
-  "main": "susi_magicmirror.js",
+  "main": "MMM-SUSI-AI.js",
   "scripts": {
-    "test": "npm run lint"
+    "postinstall": "npm run build",
+    "build": "rimraf dist && npm run webpack && npm run tsc",
+    "webpack": "webpack --config config/webpack.main.js --progress --profile --bail --display-error-details",
+    "test": "npm run lint",
+    "electron-rebuild": "electron-rebuild --pre-gyp-fix",
+    "lint": "tslint --project .",
+    "tsc": "tsc -p . ",
+    "node-pre-gyp": "node-pre-gyp clean configure build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fossasia/susi_magicmirror.git"
+    "url": "git+https://github.com/fossasia/MMM-SUSI-AI.git"
   },
   "keywords": [
     "Susi",
@@ -19,16 +26,22 @@
   "author": "betterclever",
   "license": "LGPL-2.1",
   "bugs": {
-    "url": "https://github.com/fossasia/susi_magicmirror/issues"
+    "url": "https://github.com/fossasia/MMM-SUSI-AI/issues"
   },
-  "homepage": "https://github.com/fossasia/susi_magicmirror#readme",
+  "homepage": "https://github.com/fossasia/MMM-SUSI-AI#readme",
   "dependencies": {
     "@types/node": "^8.0.2",
     "@types/request": "0.0.44",
     "@types/timer-machine": "^1.1.0",
+    "command-promise": "^2.0.1",
+    "nan": "^2.6.2",
+    "node-record-lpcm16": "^0.3.0",
     "request": "^2.81.0",
+    "request-promise": "^4.2.1",
     "rxjs": "^5.4.1",
-    "timer-machine": "^1.1.0"
+    "snowboy": "^1.2.0",
+    "timer-machine": "^1.1.0",
+    "web-request": "^1.0.7"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.1.3",

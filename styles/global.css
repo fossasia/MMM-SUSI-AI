@@ -1,0 +1,23 @@
+#wrapper {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    transition: all 0.5s
+}
+
+.wrapper-active {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.down-size {
+    transform: scale(0.93);
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
+}
+
+body {
+    transition: all 0.5s;
+}
