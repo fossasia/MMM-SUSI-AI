@@ -26,10 +26,12 @@ export class BusyState extends State {
         this.components.recognitionService.recognizeBing(subscriptionKey, readStream).then((text) => {
             console.log("You said: " + text);
 
+            this.components.rendererSend("recognized", { text: text });
+
             if (text === "Connection Error!!") {
                 Command(`flite -voice ${process.env.CWD}/resources/cmu_us_slt.flitevox -t "Connection Error Occurred!!" -o ${process.env.CWD}/temp/output.wav`)
                     .then(() => {
-                        this.components.rendererSend("speak", {});
+                        this.components.rendererSend("speak", { text: "Error" });
                     }
                     ).catch((error: Error) => {
                         return console.log(error);
@@ -41,7 +43,7 @@ export class BusyState extends State {
                 console.log(expression);
                 Command(`flite -voice ${process.env.CWD}/resources/cmu_us_slt.flitevox -t "${expression}" -o ${process.env.CWD}/temp/output.wav`)
                     .then(() => {
-                        this.components.rendererSend("speak", {});
+                        this.components.rendererSend("speak", { text: expression });
                     }
                     ).catch((error: Error) => {
                         return console.log(error);

@@ -17,20 +17,20 @@ Module.register("MMM-SUSI-AI", {
     },
 
     getDom: function () {
-        const alexaWrapper = document.createElement("div");
-        alexaWrapper.setAttribute("id", "wrapper");
+        const moduleWrapper = document.createElement("div");
+        moduleWrapper.setAttribute("id", "wrapper");
 
         const susiVisualiserCanvas = document.createElement("canvas");
-        susiVisualiserCanvas.width = 400;
-        susiVisualiserCanvas.height = 300;
-        alexaWrapper.appendChild(susiVisualiserCanvas);
+        susiVisualiserCanvas.width = 800;
+        susiVisualiserCanvas.height = 500;
+        moduleWrapper.appendChild(susiVisualiserCanvas);
 
-        //TODO: Add Visualizations
-        susiMirror = new SusiService.SusiMirror(alexaWrapper, susiVisualiserCanvas, this.config, (event, payload) => {
+        susiMirror = new SusiService.SusiMirror(moduleWrapper, susiVisualiserCanvas, this.config, (event, payload) => {
             this.sendSocketNotification(event, payload);
         });
 
-        return alexaWrapper;
+        susiMirror.start();
+        return moduleWrapper;
     },
 
     getScripts: function () {
