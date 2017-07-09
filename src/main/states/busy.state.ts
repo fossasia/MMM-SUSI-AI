@@ -1,7 +1,7 @@
-import * as Command from "command-promise";
 import * as fs from "fs";
 import { Subscription } from "rxjs/Subscription";
 
+import { TTSService } from "../speech-synthesis-service/tts-service";
 import { ChatAPI } from "../susi-api";
 import { State } from "./base.state";
 import { IStateMachineComponents } from "./susi-state-machine";
@@ -28,26 +28,21 @@ export class BusyState extends State {
 
             this.components.rendererSend("recognized", { text: text });
 
+            const ttsService = new TTSService();
             if (text === "Connection Error!!") {
-                Command(`flite -voice ${process.env.CWD}/resources/cmu_us_slt.flitevox -t "Connection Error Occurred!!" -o ${process.env.CWD}/temp/output.wav`)
-                    .then(() => {
-                        this.components.rendererSend("speak", { text: "Error" });
-                    }
-                    ).catch((error: Error) => {
-                        return console.log(error);
-                    });
+                ttsService.speakFlite("There is some error").then(() => {
+                    this.components.rendererSend("speak", { text: "There is some error!" });
+                }
+                );
             }
 
             this.chatAPI.askSusi(text).then((answer: any) => {
                 const expression = answer.answers[0].actions[0].expression;
                 console.log(expression);
-                Command(`flite -voice ${process.env.CWD}/resources/cmu_us_slt.flitevox -t "${expression}" -o ${process.env.CWD}/temp/output.wav`)
-                    .then(() => {
-                        this.components.rendererSend("speak", { text: expression });
-                    }
-                    ).catch((error: Error) => {
-                        return console.log(error);
-                    });
+                ttsService.speakBing(subscriptionKey, expression).then((val) => {
+                    console.log(val);
+                    this.components.rendererSend("speak", { text: expression });
+                });
             });
         }).catch((error) => {
             console.log("here is the error");

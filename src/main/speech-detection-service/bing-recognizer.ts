@@ -50,10 +50,10 @@ export class BingRecognizer {
                 return new Promise<string>((resolve, reject) => {
                     rp(options)
                         .then((response) => {
-                            console.log(response);
-                            const recognitionResponse: IBingRecognitionResult = JSON.parse(response);
-                            return resolve(recognitionResponse.DisplayText);
-                        }
+                                console.log(response);
+                                const recognitionResponse: IBingRecognitionResult = JSON.parse(response);
+                                return resolve(recognitionResponse.DisplayText);
+                            }
                         )
                         .catch((error: Error) => {
                             console.log("An Error Occurred!");
@@ -62,8 +62,8 @@ export class BingRecognizer {
                 });
 
             }).catch((error) => {
-                return "Connection Error";
-            }
+                    return "Connection Error";
+                }
             );
     }
 
