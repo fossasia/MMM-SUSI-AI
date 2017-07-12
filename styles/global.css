@@ -8,6 +8,17 @@
     transition: all 0.5s
 }
 
+#userQueryText {
+    font-family: "Roboto", sans-serif;
+    font-size: 2em;
+    font-weight: 400;
+}
+
+#responseDiv {
+    height: 200px;
+    width: 800px;
+}
+
 .wrapper-active {
     background-color: rgba(0, 0, 0, 0.3);
 }

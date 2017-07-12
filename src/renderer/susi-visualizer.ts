@@ -6,7 +6,6 @@ export class SusiVisualizer {
 
     private drawingContext: CanvasRenderingContext2D;
     private delta = 0;
-    private text = "Ask me anything !!";
     private animationRate = 0;
 
     constructor(canvas: HTMLCanvasElement) {
@@ -17,26 +16,21 @@ export class SusiVisualizer {
         this.draw();
     }
 
-    public setMode(type: NotificationType, text?: string): void {
+    public setMode(type: NotificationType): void {
         switch (type) {
             case "idle":
-                this.text = "Ask me Anything !!";
                 this.animationRate = 0.0;
                 break;
             case "speak":
-                this.text = text;
                 this.animationRate = 0.01;
                 break;
             case "busy":
-                this.text = "Recognizing ....";
                 this.animationRate = 0.01;
                 break;
             case "recognized":
-                this.text = text;
                 this.animationRate = 0.02;
                 break;
             case "listening":
-                this.text = "Listening ...";
                 this.animationRate = 0.01;
                 break;
         }
@@ -66,11 +60,6 @@ export class SusiVisualizer {
             ctx.fill();
             ctx.closePath();
         }
-
-        ctx.font = "20px Roboto";
-        ctx.textAlign = "center";
-        ctx.fillText(this.text, canvas.width / 2, 350, 800);
-
         requestAnimationFrame(this.draw.bind(this));
     }
 }
