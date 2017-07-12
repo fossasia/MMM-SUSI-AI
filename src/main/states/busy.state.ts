@@ -1,10 +1,10 @@
 import * as fs from "fs";
-import { Subscription } from "rxjs/Subscription";
+import {Subscription} from "rxjs/Subscription";
 
-import { TTSService } from "../speech-synthesis-service/tts-service";
-import { ChatAPI } from "../susi-api";
-import { State } from "./base.state";
-import { IStateMachineComponents } from "./susi-state-machine";
+import {TTSService} from "../speech-synthesis-service/tts-service";
+import {ChatAPI} from "../susi-api";
+import {State} from "./base.state";
+import {IStateMachineComponents} from "./susi-state-machine";
 
 export class BusyState extends State {
     private rendererSubscription: Subscription;
@@ -12,7 +12,7 @@ export class BusyState extends State {
 
     constructor(components: IStateMachineComponents) {
         super(components, "busy");
-        this.chatAPI = new ChatAPI();
+        this.chatAPI = new ChatAPI(undefined, undefined, undefined, components.configService);
     }
 
     public onEnter(): void {
@@ -26,22 +26,21 @@ export class BusyState extends State {
         this.components.recognitionService.recognizeBing(subscriptionKey, readStream).then((text) => {
             console.log("You said: " + text);
 
-            this.components.rendererSend("recognized", { text: text });
+            this.components.rendererSend("recognized", {text: text});
 
             const ttsService = new TTSService();
             if (text === "Connection Error!!") {
                 ttsService.speakFlite("There is some error").then(() => {
-                    this.components.rendererSend("speak", { text: "There is some error!" });
-                }
+                        this.components.rendererSend("speak", {text: "There is some error!"});
+                    }
                 );
             }
-
             this.chatAPI.askSusi(text).then((answer: any) => {
                 const expression = answer.answers[0].actions[0].expression;
                 console.log(expression);
                 ttsService.speakBing(subscriptionKey, expression).then((val) => {
                     console.log(val);
-                    this.components.rendererSend("speak", { text: expression });
+                    this.components.rendererSend("speak", {text: expression});
                 });
             });
         }).catch((error) => {
