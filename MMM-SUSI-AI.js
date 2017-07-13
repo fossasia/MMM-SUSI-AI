@@ -13,19 +13,30 @@ Module.register("MMM-SUSI-AI", {
 
 
     start: function () {
-		this.sendSocketNotification("CONFIG", this.config);
+        this.sendSocketNotification("CONFIG", this.config);
     },
 
     getDom: function () {
         const moduleWrapper = document.createElement("div");
-        moduleWrapper.setAttribute("id", "wrapper");
 
-        const susiVisualiserCanvas = document.createElement("canvas");
-        susiVisualiserCanvas.width = 800;
-        susiVisualiserCanvas.height = 500;
-        moduleWrapper.appendChild(susiVisualiserCanvas);
+        const visualizerCanvas = document.createElement("canvas");
+        visualizerCanvas.width = 400;
+        visualizerCanvas.height = 400;
+        moduleWrapper.appendChild(visualizerCanvas);
 
-        susiMirror = new SusiService.SusiMirror(moduleWrapper, susiVisualiserCanvas, this.config, (event, payload) => {
+        const userQueryDiv = document.createElement("div");
+        const userTextNode = document.createTextNode("");
+        userTextNode.className = "userQueryText";
+        userQueryDiv.appendChild(userTextNode);
+        moduleWrapper.appendChild(userQueryDiv);
+
+        const susiResponseDiv = document.createElement("div");
+        susiResponseDiv.setAttribute("id", "responseDiv");
+        susiResponseDiv.className = "thin xlarge bright";
+        susiResponseDiv.setAttribute("style","margin: 50px; width: 1000px");
+        moduleWrapper.appendChild(susiResponseDiv);
+
+        susiMirror = new SusiService.SusiMirror(moduleWrapper, visualizerCanvas, userTextNode, susiResponseDiv, this.config, (event, payload) => {
             this.sendSocketNotification(event, payload);
         });
 

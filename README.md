@@ -55,6 +55,19 @@ This will start Magic Mirror with basic modules on your screen.
 Now, you can invoke Susi via "Susi" Hotword. Once Hotword Detected, your MagicMirror screen will blur.
 Ask you query by voice after that, Susi will speak back the reply and Mirror Screen will go in original state.
 
+# Additional/Optional Setup
+
+If you want better experience with SUSI AI on your MagicMirror, disable the default 'Compliments' module.
+To disable the 'Compliments Module', comment or remove the following lines in configuration file in config/config.js
+
+```
+{
+			module: "compliments",
+			position: "lower_third"
+},
+```
+
+
 # Got any problems ?
 
 While running if you get a log statement mentioning SnowBoy module not found, run

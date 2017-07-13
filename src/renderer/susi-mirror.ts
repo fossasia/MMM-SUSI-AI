@@ -1,16 +1,21 @@
-import {SusiVisualizer} from "./SusiVisualizer";
+import {ResponseUI} from "./response-ui";
+import {SusiVisualizer} from "./susi-visualizer";
 export class SusiMirror {
 
     private visualizer: SusiVisualizer;
-    constructor(
-        private mainDiv: HTMLElement,
-        private canvas: HTMLCanvasElement,
-        private config: Config,
-        private mainSend: (event: NotificationType, payload: object) => void) {
+    private responseUI: ResponseUI;
+
+    constructor(private mainDiv: HTMLDivElement,
+                private canvas: HTMLCanvasElement,
+                private userQueryTextNode: Text,
+                private susiResponseDiv: HTMLDivElement,
+                private config: Config,
+                private mainSend: (event: NotificationType, payload: object) => void) {
+        this.visualizer = new SusiVisualizer(this.canvas);
+        this.responseUI = new ResponseUI(susiResponseDiv);
     }
 
     public start(): void {
-        this.visualizer = new SusiVisualizer(this.canvas);
         this.visualizer.start();
     }
 
@@ -20,21 +25,27 @@ export class SusiMirror {
         switch (type) {
             case "idle":
                 this.idle();
-                this.visualizer.setMode("idle", payload.text);
+                this.visualizer.setMode("idle");
+                this.userQueryTextNode.nodeValue = "Ask me anything !!";
+                this.responseUI.clear();
                 break;
             case "listening":
                 this.listening();
                 this.visualizer.setMode("listening");
+                this.userQueryTextNode.nodeValue = "Speak Now";
                 break;
             case "busy":
                 this.visualizer.setMode("busy");
+                this.userQueryTextNode.nodeValue = "";
                 break;
             case "recognized":
-                this.visualizer.setMode("recognized", payload.text);
+                this.visualizer.setMode("recognized");
+                this.userQueryTextNode.nodeValue = payload.text;
                 break;
             case "speak":
                 this.speaking();
-                this.visualizer.setMode("speak", payload.text);
+                this.visualizer.setMode("speak");
+                this.responseUI.update(payload.text);
                 break;
         }
     }
@@ -44,7 +55,7 @@ export class SusiMirror {
     }
 
     public idle(): void {
-            this.mainDiv.classList.remove("wrapper-active");
+        this.mainDiv.classList.remove("wrapper-active");
     }
 
     public speaking(): void {
