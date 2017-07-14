@@ -50,6 +50,22 @@ This will start Magic Mirror with basic modules on your screen.
 	}
 }
 ```
+
+or if you want to use SUSI in authenticated mode (sign up on https://chat.susi.ai)
+```
+{
+	module: "MMM-SUSI-AI",
+	position: "top_bar",
+	config: {
+	    hotword: "Susi",
+	    user: {
+	        email: "YOUR_EMAIL",
+	        password: "YOUR_SUSI_PASSWORD"
+	    }
+	}
+}
+```
+
 - Start the MagicMirror again by ```npm start```
 
 Now, you can invoke Susi via "Susi" Hotword. Once Hotword Detected, your MagicMirror screen will blur.

@@ -3,3 +3,4 @@
  */
 
 export {ChatAPI} from "./chat-api";
+export {SignInService} from "./signin-service";

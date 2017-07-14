@@ -1,8 +1,9 @@
-import { ConfigService } from "./config-service";
-import { SusiModels } from "./models";
-import { RendererCommunicator } from "./renderer-communicator";
-import { RecognitionService } from "./speech-detection-service";
-import { SusiStateMachine } from "./states/susi-state-machine";
+import {ConfigService} from "./config-service";
+import {SusiModels} from "./models";
+import {RendererCommunicator} from "./renderer-communicator";
+import {RecognitionService} from "./speech-detection-service";
+import {SusiStateMachine} from "./states/susi-state-machine";
+import {SignInService} from "./susi-api/signin-service";
 
 export default class Main {
     private susiStateMachine: SusiStateMachine;
@@ -15,6 +16,13 @@ export default class Main {
         this.rendererCommunicator = new RendererCommunicator();
         this.susiStateMachine = this.createStateMachine(configService, rendererSend);
 
+        if (config.user !== "anonymous") {
+            const signInService = new SignInService(config.user);
+            signInService.observable.subscribe((token) => {
+               configService.Config.accessToken = token;
+               console.log(token);
+            });
+        }
     }
 
     public receivedNotification<T>(type: NotificationType, payload: T): void {
@@ -39,10 +47,17 @@ export default class Main {
         if (uncheckedConfig.hotword === undefined) {
             throw new Error("hotword must be defined");
         }
-
-        return {
-            hotword: uncheckedConfig.hotword
-        };
+        if (uncheckedConfig.user === undefined) {
+            return {
+                hotword: uncheckedConfig.hotword,
+                user: "anonymous"
+            };
+        } else {
+            return {
+                hotword: uncheckedConfig.hotword,
+                user: uncheckedConfig.user
+            };
+        }
     }
 }
 
