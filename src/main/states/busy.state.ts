@@ -40,7 +40,7 @@ export class BusyState extends State {
                 console.log(expression);
                 ttsService.speakBing(subscriptionKey, expression).then((val) => {
                     console.log(val);
-                    this.components.rendererSend("speak", {text: expression});
+                    this.components.rendererSend("speak", {susiResponse: answer});
                 });
             });
         }).catch((error) => {

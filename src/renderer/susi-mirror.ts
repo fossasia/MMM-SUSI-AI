@@ -45,7 +45,7 @@ export class SusiMirror {
             case "speak":
                 this.speaking();
                 this.visualizer.setMode("speak");
-                this.responseUI.update(payload.text);
+                this.responseUI.update(payload.susiResponse);
                 break;
         }
     }

@@ -33,7 +33,6 @@ export class IdleState extends State {
     private createMic(): record.Mic {
         const mic = record.start({
             threshold: 0,
-            verbose: true,
         });
 
         return mic;

@@ -32,7 +32,6 @@ Module.register("MMM-SUSI-AI", {
 
         const susiResponseDiv = document.createElement("div");
         susiResponseDiv.setAttribute("id", "responseDiv");
-        susiResponseDiv.className = "thin xlarge bright";
         susiResponseDiv.setAttribute("style","margin: 50px; width: 1000px");
         moduleWrapper.appendChild(susiResponseDiv);
 
@@ -53,6 +52,7 @@ Module.register("MMM-SUSI-AI", {
     getStyles: function () {
         return [
             this.file("styles/global.css"),
+            "https://unpkg.com/leaflet@1.1.0/dist/leaflet.css",
         ];
     },
 
