@@ -52,19 +52,20 @@ export class BingRecognizer {
                         .then((response) => {
                                 console.log(response);
                                 const recognitionResponse: IBingRecognitionResult = JSON.parse(response);
+                                console.log(recognitionResponse);
+                                if (recognitionResponse.RecognitionStatus === "InitialSilenceTimeout" ||
+                                    recognitionResponse.RecognitionStatus === "NoMatch") {
+                                    return reject("Recognition Error");
+                                }
                                 return resolve(recognitionResponse.DisplayText);
                             }
                         )
                         .catch((error: Error) => {
-                            console.log("An Error Occurred!");
-                            return reject("Connection Error");
+                            return reject(error);
                         });
                 });
 
-            }).catch((error) => {
-                    return "Connection Error";
-                }
-            );
+            });
     }
 
     private issueToken(): Promise<string> {

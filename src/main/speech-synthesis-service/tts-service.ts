@@ -12,7 +12,6 @@ export class TTSService {
 
             bingTTS.synthesizeSpeech(text)
                 .then((result: boolean) => {
-                    console.log(`result aaya ${result}`);
                     if (result) {
                         resolve("true");
                     } else {

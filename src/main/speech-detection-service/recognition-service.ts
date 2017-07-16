@@ -7,13 +7,13 @@ export class RecognitionService {
         return new Promise<string>((resolve, reject) => {
             const client = new BingRecognizer(subscriptionKey);
 
-            return client.recognizeAudioStream(file).then( (response: string) => {
+            return client.recognizeAudioStream(file).then((response: string) => {
                 console.log(response);
                 return resolve(response);
                 }
             ).catch((error) => {
                 console.log(error);
-                return reject(new Error(error));
+                return reject(error);
             });
         });
     }

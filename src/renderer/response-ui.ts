@@ -20,6 +20,15 @@ export class ResponseUI {
 
     public update(susiResponse: any): void {
         this.clear();
+
+        if (susiResponse == null) {
+            this.mainDiv.className = "thin bright";
+            this.mainDiv.setAttribute("style", "font-size: 2vw; margin: 40px");
+            const node = document.createTextNode("There is some error");
+            this.mainDiv.appendChild(node);
+            return;
+        }
+
         const actions: Array<any> = susiResponse.answers[0].actions;
         for (const action of actions) {
             if (action.type === "answer") {
