@@ -1,7 +1,7 @@
 //noinspection TsLint
 interface Config {
     hotword: string;
-    users: Array<IUser> | "anonymous";
+    users: Array<IUser>;
 }
 
 //noinspection TsLint

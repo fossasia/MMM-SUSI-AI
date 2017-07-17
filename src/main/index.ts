@@ -1,3 +1,4 @@
+import {isUndefined} from "util";
 import {ConfigService} from "./config-service";
 import {SusiModels} from "./models";
 import {RendererCommunicator} from "./renderer-communicator";
@@ -9,25 +10,40 @@ export default class Main {
     private susiStateMachine: SusiStateMachine;
     private rendererCommunicator: RendererCommunicator;
     private signInService: SignInService;
+    private configService: ConfigService;
+    private config: Config;
 
     constructor(uncheckedConfig: UncheckedConfig, rendererSend: (event: string, payload: object) => void) {
-        const config = this.checkConfig(uncheckedConfig);
-        const configService = new ConfigService(config);
+        this.config = this.checkConfig(uncheckedConfig);
+        this.configService = new ConfigService(this.config);
 
         this.rendererCommunicator = new RendererCommunicator();
-        this.susiStateMachine = this.createStateMachine(configService, rendererSend);
-
-        if (config.users !== "anonymous") {
-            this.signInService = new SignInService(config.users[0]);
-            this.signInService.observable.subscribe((token) => {
-                configService.Config.accessToken = token;
-                console.log(token);
-            });
-        }
+        this.susiStateMachine = this.createStateMachine(this.configService, rendererSend);
     }
 
-    public receivedNotification<T>(type: NotificationType, payload: T): void {
-        console.log("---->  type: " + type, payload);
+    public receivedNotification(type: NotificationType, payload: any): void {
+        if (type === "CURRENT_USER") {
+            console.log("Current User", payload);
+            if (payload === "None" || payload === "anonymous") {
+                this.configService.Config.accessToken = null;
+            } else {
+                console.log(this.config.users);
+                for (const user of this.config.users) {
+                    if (user.face_recognition_username === payload) {
+                        if (isUndefined(this.signInService)) {
+                            this.signInService = new SignInService(user);
+                        }
+
+                        this.signInService.updateUser(user).then((token) => {
+                            console.log("updating token for " + user);
+                            this.configService.Config.accessToken = token;
+                        });
+                        return;
+                    }
+                }
+                this.configService.Config.accessToken = null;
+            }
+        }
         this.rendererCommunicator.sendNotification(type);
     }
 
@@ -46,13 +62,14 @@ export default class Main {
 
     private checkConfig(uncheckedConfig: UncheckedConfig): Config {
 
+        console.log(uncheckedConfig);
         if (uncheckedConfig.hotword === undefined) {
             throw new Error("hotword must be defined");
         }
         if (uncheckedConfig.users === undefined) {
             return {
                 hotword: uncheckedConfig.hotword,
-                users: "anonymous"
+                users: []
             };
         } else {
             return {
