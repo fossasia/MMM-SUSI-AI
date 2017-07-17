@@ -8,6 +8,7 @@ import {SignInService} from "./susi-api/signin-service";
 export default class Main {
     private susiStateMachine: SusiStateMachine;
     private rendererCommunicator: RendererCommunicator;
+    private signInService: SignInService;
 
     constructor(uncheckedConfig: UncheckedConfig, rendererSend: (event: string, payload: object) => void) {
         const config = this.checkConfig(uncheckedConfig);
@@ -16,16 +17,17 @@ export default class Main {
         this.rendererCommunicator = new RendererCommunicator();
         this.susiStateMachine = this.createStateMachine(configService, rendererSend);
 
-        if (config.user !== "anonymous") {
-            const signInService = new SignInService(config.user);
-            signInService.observable.subscribe((token) => {
-               configService.Config.accessToken = token;
-               console.log(token);
+        if (config.users !== "anonymous") {
+            this.signInService = new SignInService(config.users[0]);
+            this.signInService.observable.subscribe((token) => {
+                configService.Config.accessToken = token;
+                console.log(token);
             });
         }
     }
 
     public receivedNotification<T>(type: NotificationType, payload: T): void {
+        console.log("---->  type: " + type, payload);
         this.rendererCommunicator.sendNotification(type);
     }
 
@@ -47,15 +49,15 @@ export default class Main {
         if (uncheckedConfig.hotword === undefined) {
             throw new Error("hotword must be defined");
         }
-        if (uncheckedConfig.user === undefined) {
+        if (uncheckedConfig.users === undefined) {
             return {
                 hotword: uncheckedConfig.hotword,
-                user: "anonymous"
+                users: "anonymous"
             };
         } else {
             return {
                 hotword: uncheckedConfig.hotword,
-                user: uncheckedConfig.user
+                users: uncheckedConfig.users
             };
         }
     }

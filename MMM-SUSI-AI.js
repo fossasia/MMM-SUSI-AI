@@ -57,7 +57,24 @@ Module.register("MMM-SUSI-AI", {
     },
 
     socketNotificationReceived: function (notification, payload) {
-        Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
         susiMirror.receivedNotification(notification, payload);
     },
+
+    notificationReceived: function(notification, payload, sender) {
+        console.log(this.name,notification,payload,sender);
+        if (sender) {
+            if(sender.name === "MMM-Facial-Recognition"){
+                if(notification === "CURRENT_USER"){
+                    console.log(this.name,notification,payload,sender);
+                    if(payload === "None"){
+                        this.sendSocketNotification("CURRENT_USER","anonymous");
+                    } else {
+                        this.sendSocketNotification("CURRENT_USER",payload)
+                    }
+                }
+            }
+        } else {
+            Log.log(this.name + " received a system notification: " + notification);
+        }
+    }
 });
