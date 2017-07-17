@@ -21,7 +21,7 @@ Module.register("MMM-SUSI-AI", {
 
         const visualizerCanvas = document.createElement("canvas");
         visualizerCanvas.width = 400;
-        visualizerCanvas.height = 400;
+        visualizerCanvas.height = 300;
         moduleWrapper.appendChild(visualizerCanvas);
 
         const userQueryDiv = document.createElement("div");

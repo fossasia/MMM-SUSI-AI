@@ -24,13 +24,14 @@ export class ResponseUI {
         for (const action of actions) {
             if (action.type === "answer") {
                 this.mainDiv.className = "thin bright";
-                this.mainDiv.setAttribute("style", "font-size: 2vw");
-                const node = document.createTextNode(action.expression);
+                this.mainDiv.setAttribute("style", "font-size: 2vw; margin: 40px");
+                const filteredText = this.removeLinks(action.expression);
+                const node = document.createTextNode(filteredText);
                 this.mainDiv.appendChild(node);
             } else if (action.type === "map") {
                 const mapDiv = document.createElement("div");
                 mapDiv.setAttribute("style", "width:300px; height: 300px; margin: 0 auto");
-                console.log(action);
+                this.mainDiv.appendChild(mapDiv);
                 const latitude = parseFloat(action.latitude);
                 const longitude = parseFloat(action.longitude);
                 const map = L.map(mapDiv).setView([latitude, longitude], parseInt(action.zoom, 10));
@@ -38,7 +39,9 @@ export class ResponseUI {
                     attribution: "",
                     maxZoom: parseInt(action.zoom, 10)
                 }).addTo(map);
-                this.mainDiv.appendChild(mapDiv);
+                L.marker([51.5, -0.09]).addTo(map)
+                    .bindPopup("Here")
+                    .openPopup();
             }
         }
     }
@@ -47,5 +50,9 @@ export class ResponseUI {
         while (this.mainDiv.hasChildNodes()) {
             this.mainDiv.removeChild(this.mainDiv.lastChild);
         }
+    }
+
+    private removeLinks(text: string): string {
+        return text.replace(/(?:https?|ftp):\/\/[\n\S]+/g, "");
     }
 }
