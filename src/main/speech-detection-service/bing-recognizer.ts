@@ -43,7 +43,7 @@ export class BingRecognizer {
                     body: input,
                     headers: {
                         "Authorization": `Bearer ${this.token}`,
-                        "Content-Type": "audio/wav; codec=\"audio/pcm\"; samplerate=8000"
+                        "Content-Type": "audio/wav; codec=\"audio/pcm\"; samplerate=16000"
                     }
                 };
 

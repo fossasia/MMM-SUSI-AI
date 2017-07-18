@@ -37,10 +37,10 @@ export class BusyState extends State {
             }
             this.chatAPI.askSusi(text).then((answer: any) => {
                 const expression = answer.answers[0].actions[0].expression;
-                console.log(expression);
-                ttsService.speakBing(subscriptionKey, expression).then((val) => {
+                const filteredText = this.removeLinks(expression);
+                ttsService.speakBing(subscriptionKey, filteredText).then((val) => {
                     console.log(val);
-                    this.components.rendererSend("speak", {text: expression});
+                    this.components.rendererSend("speak", {susiResponse: answer});
                 });
             });
         }).catch((error) => {
@@ -57,5 +57,9 @@ export class BusyState extends State {
 
     public onExit(): void {
         this.rendererSubscription.unsubscribe();
+    }
+
+    private removeLinks(text: string): string {
+        return text.replace(/(?:https?|ftp):\/\/[\n\S]+/g, "");
     }
 }
