@@ -12,16 +12,34 @@ Currently, magic mirror module for Susi is in working state. You can invoke Susi
 Susi will reply back with answer. Notably,
 
 - Hotword Detection is working via Snowboy Hotword Detection
-- Speech Recognition i Working via Microsoft. Cognitive Services: Bing Speech API
-- Text to Speech is working via Flite TTS.
-- Answer Action Type by Susi API Working.
+- Speech Recognition is Working via Microsoft Cognitive Services: Bing Speech API
+- Text to Speech is working via Bing Text to Speech.
+- Answer and Map Action Type by Susi API Working.
+- Authentication with Face Recognition with MMM-Facial-Recognition module.
 
 ## Next Steps
 
-- Add visualization support in module
+- Add better visualization support in module
 - Display data by various action types on Mirror Screen.
 
 # How to install?
+
+## Hardware Requirements
+- A Raspberry Pi or similar development board.
+- A screen with 2 way mirror.
+- A USB Microphone.
+- A Camera for Face Recognition (Optional). If you are using a webcam it has Microphone 
+built in , so you do not need USB Microphone.
+- Keyboard and Mouse. It is optional but recommended for initial setup.
+You may also SSH into your development board.
+
+## Software Requirements
+- NodeJS (Recommended version 6+). Raspbian repositories have old NodeJS. Install using [nvm](https://github.com/creationix/nvm) 
+- Node Package Manager (npm)
+- Some additional dependencies. Install using
+```
+sudo apt install sox libsox-fmt-all libatlas-dev libatlas-base-dev
+```
 
 ## Install Magic Mirror
 - ```git clone https://github.com/MichMich/MagicMirror ```
@@ -51,21 +69,33 @@ This will start Magic Mirror with basic modules on your screen.
 }
 ```
 
-or if you want to use SUSI in authenticated mode (sign up on https://chat.susi.ai)
+or if you want to use SUSI in authenticated mode with **Face Recognition**
+
+- Install MMM-Facial-Recognition Module to your MagicMirror by following instructions on the
+[offical Github page](https://github.com/paviro/MMM-Facial-Recognition)
+- Train Face Recognition for 1 or more person. You need to have a SUSI account for each of them.
+Sign up at https://account.susi.ai
+- In the config file (config.js), add the following lines. If there are multiple users, add more ```user``` object to
+users array.
+
 ```
 {
 	module: "MMM-SUSI-AI",
 	position: "top_bar",
 	config: {
 	    hotword: "Susi",
-	    user: {
+	    users: [
+	    {
+	        face_recognition_username: "NAME_FOR_THIS_USER_USED_IN_MMM-Facial-Recognition"
 	        email: "YOUR_EMAIL",
 	        password: "YOUR_SUSI_PASSWORD"
 	    }
-	}
+	    ]
+	},
+	classes: "default everyone"
 }
 ```
-
+- Save the config.
 - Start the MagicMirror again by ```npm start```
 
 Now, you can invoke Susi via "Susi" Hotword. Once Hotword Detected, your MagicMirror screen will blur.
