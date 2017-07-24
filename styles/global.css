@@ -15,8 +15,8 @@
 }
 
 #responseDiv {
-    height: 200px;
-    width: 800px;
+    height: 400px;
+    width: 80%
 }
 
 .wrapper-active {
@@ -27,6 +27,37 @@
     transform: scale(0.93);
     filter: blur(2px);
     -webkit-filter: blur(2px);
+}
+
+.rss-div {
+    margin: 50px auto auto;
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    height: 150px;
+    width: 300px;
+    color: black;
+    font-size: 25px;
+    background: white;
+    margin: 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Add some padding inside the card container */
+.container {
+    padding: 2px 16px;
 }
 
 body {
