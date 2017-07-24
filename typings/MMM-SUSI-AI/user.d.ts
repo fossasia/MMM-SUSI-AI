@@ -3,6 +3,7 @@
  */
 
 interface IUser {
+    face_recognition_username?: string;
     email: string;
     password: string;
 }

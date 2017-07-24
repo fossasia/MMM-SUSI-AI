@@ -35,7 +35,7 @@ export class ChatAPI {
         // TODO: Use location parameters
         const accessToken = this.configService.Config.accessToken;
 
-        const requestString: string = (!isUndefined(accessToken)) ?
+        const requestString: string = (!isUndefined(accessToken) && accessToken != null) ?
             `http://api.susi.ai/susi/chat.json?q=${query}&access_token=${accessToken}` :
             `http://api.susi.ai/susi/chat.json?q=${query}`;
 

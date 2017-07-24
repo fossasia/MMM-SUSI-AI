@@ -1,11 +1,11 @@
 //noinspection TsLint
 interface Config {
     hotword: string;
-    user: IUser | "anonymous";
+    users: Array<IUser>;
 }
 
 //noinspection TsLint
 interface UncheckedConfig {
     hotword?: string;
-    user?: IUser;
+    users?: Array<IUser>;
 }

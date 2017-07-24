@@ -14,10 +14,12 @@ interface ISusiSignInResponse {
 
 export class SignInService {
     public observable: Observable<string>;
+    private user: IUser;
 
     constructor(user: IUser) {
+        this.user = user;
         this.observable = new Observable<string>((observer) => {
-            this.obtainToken(user).then((token) => {
+            this.obtainToken(this.user).then((token) => {
                 observer.next(token);
             }).catch((err) => {
                 throw new Error(err);
@@ -31,6 +33,11 @@ export class SignInService {
                 });
             }, 60480 * 1000);
         });
+    }
+
+    public async updateUser(user: IUser): Promise<string> {
+        this.user = user;
+        return await this.obtainToken(user);
     }
 
     private obtainToken(user: IUser): Promise<string> {
