@@ -4,7 +4,7 @@
 import * as L from "leaflet";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import {RSSComponent} from "./rss-component";
+import {MapView} from "./components/map-view";
 
 export class ResponseUI {
 
@@ -49,33 +49,12 @@ export class ResponseUI {
             } else if (action.type === "map") {
 
                 const mapDiv = document.createElement("div");
-                mapDiv.setAttribute("style", "width:300px; height: 300px; margin: 0 auto");
+                mapDiv.className = "map-div";
                 this.mainDiv.appendChild(mapDiv);
-                const latitude = parseFloat(action.latitude);
-                const longitude = parseFloat(action.longitude);
-                const map = L.map(mapDiv).setView([latitude, longitude], parseInt(action.zoom, 10));
+                ReactDOM.render(<MapView longitude={parseFloat(action.longitude)}
+                                         latitude={parseFloat(action.latitude)}
+                                         zoom={parseInt(action.zoom, 10)}/>, mapDiv);
 
-                L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
-                    attribution: "",
-                    maxZoom: parseInt(action.zoom, 10)
-                }).addTo(map);
-
-                L.marker([latitude, longitude]).addTo(map)
-                    .bindPopup("Here")
-                    .openPopup();
-
-            } else if (action.type === "rss") {
-                const rssDiv = document.createElement("rss");
-                rssDiv.className = "rss-div";
-                this.mainDiv.appendChild(rssDiv);
-                ReactDOM.render(<RSSComponent/>, rssDiv);
-                // for (let i = 0; i < 5; i++) {
-                //     const div = document.createElement(`result:${i}div`);
-                //     div.className = "card";
-                //     rssDiv.appendChild(div);
-                // }
-                //
-                // this.mainDiv.appendChild(rssDiv);
             }
         }
     }
