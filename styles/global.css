@@ -16,7 +16,9 @@
 
 #responseDiv {
     height: 400px;
-    width: 80%
+    width: 100%;
+    font-size: 2vw;
+    margin-top: 40px;
 }
 
 .wrapper-active {
@@ -34,6 +36,8 @@
     position: relative;
     width: 100%;
     text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .map-div {
@@ -47,13 +51,38 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     height: 150px;
-    width: 300px;
-    color: black;
+    width: 230px;
+    color: white;
     font-size: 25px;
-    background: white;
+    background: black;
     margin: 10px;
     border-radius: 5px;
-    display: inline-block;
+    display: inline-table;
+}
+
+.card-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 22px;     /* fallback */
+    max-height: 44px;      /* fallback */
+    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+.card-description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 30px;
+    display: -webkit-box;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 20px;     /* fallback */
+    max-height: 60px;      /* fallback */
+    -webkit-line-clamp: 3; /* number of lines to show */
+    -webkit-box-orient: vertical;
 }
 
 /* On mouse-over, add a deeper shadow */

@@ -1,10 +1,11 @@
 /**
  * Created by betterclever on 12/7/17.
  */
-import * as L from "leaflet";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {MapView} from "./components/map-view";
+import {IRssProps} from "./components/rss-card";
+import {RSSFeed} from "./components/rss-feed";
 
 export class ResponseUI {
 
@@ -29,8 +30,7 @@ export class ResponseUI {
 
         if (susiResponse == null) {
             this.mainDiv.className = "thin bright";
-            this.mainDiv.setAttribute("style", "font-size: 2vw; margin: 40px");
-            const node = document.createTextNode("There is some error");
+            const node = document.createTextNode("Sorry! I couldn't recognize. Please try again.");
             this.mainDiv.appendChild(node);
             return;
         }
@@ -41,7 +41,6 @@ export class ResponseUI {
             if (action.type === "answer") {
 
                 this.mainDiv.className = "thin bright";
-                this.mainDiv.setAttribute("style", "font-size: 2vw; margin: 40px");
                 const filteredText = this.removeLinks(action.expression);
                 const node = document.createTextNode(filteredText);
                 this.mainDiv.appendChild(node);
@@ -55,6 +54,12 @@ export class ResponseUI {
                                          latitude={parseFloat(action.latitude)}
                                          zoom={parseInt(action.zoom, 10)}/>, mapDiv);
 
+            } else if (action.type === "rss") {
+
+                const rssFeeds = this.getRSSFeed(susiResponse.answers[0].data);
+                const rssDiv = document.createElement("rssDiv");
+                this.mainDiv.appendChild(rssDiv);
+                ReactDOM.render(<RSSFeed feeds={rssFeeds}/>, rssDiv);
             }
         }
     }
@@ -63,6 +68,12 @@ export class ResponseUI {
         while (this.mainDiv.hasChildNodes()) {
             this.mainDiv.removeChild(this.mainDiv.lastChild);
         }
+    }
+
+    private getRSSFeed(data: Array<any>): Array<IRssProps> {
+        return data.map((datum) => {
+            return {title: datum.title, description: datum.description, link: datum.link};
+        });
     }
 
     private removeLinks(text: string): string {

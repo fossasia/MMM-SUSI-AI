@@ -16,11 +16,11 @@ export class RSSFeed extends React.Component <IRSSFeedProps, any> {
     }
 
     public render(): JSX.Element | any | any {
-        return <div>
+        return <div className="rss-div">
             {this.props.feeds.map((feed: IRssProps) => {
-                    return <RSSCard title={feed.title} description={feed.description} link={feed.link}/>;
+                    return <RSSCard key={feed.title} title={feed.title} description={feed.description} link={feed.link}/>;
                 }
-            )}
+            ).slice(0, 5)}
         </div>;
     }
 }

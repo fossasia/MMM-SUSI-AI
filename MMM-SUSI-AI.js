@@ -32,7 +32,6 @@ Module.register("MMM-SUSI-AI", {
 
         const susiResponseDiv = document.createElement("div");
         susiResponseDiv.setAttribute("id", "responseDiv");
-        susiResponseDiv.setAttribute("style","margin: 50px; width: 1000px");
         moduleWrapper.appendChild(susiResponseDiv);
 
         susiMirror = new SusiService.SusiMirror(moduleWrapper, visualizerCanvas, userTextNode, susiResponseDiv, this.config, (event, payload) => {
