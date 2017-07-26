@@ -31,12 +31,12 @@ module.exports = {
     },
 
     resolve: {
-        extensions: [".js", ".ts"],
+        extensions: [".js", ".ts", ".tsx", ".jsx"],
     },
 
     module: {
         loaders: [{
-            test: /\.ts$/,
+            test: /\.tsx?$/,
             loaders: ["awesome-typescript-loader"],
         },
             {

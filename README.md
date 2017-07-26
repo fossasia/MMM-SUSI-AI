@@ -73,8 +73,8 @@ or if you want to use SUSI in authenticated mode with **Face Recognition**
 
 - Install MMM-Facial-Recognition Module to your MagicMirror by following instructions on the
 [offical Github page](https://github.com/paviro/MMM-Facial-Recognition)
-- Train Face Recognition for 1 or more person. You need to have a SUSI account for each of them.
-Sign up at https://account.susi.ai
+- Train Face Recognition for 1 or more person. You need to have a SUSI account for each one of them.
+Sign up at https://accounts.susi.ai
 - In the config file (config.js), add the following lines. If there are multiple users, add more ```user``` object to
 users array.
 
