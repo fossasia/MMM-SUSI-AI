@@ -16,8 +16,8 @@ export class RSSCard extends React.Component <IRssProps, any> {
 
     public render(): JSX.Element | any | any {
         return <div className="card">
-            <span>{this.props.title}</span>
-            <span>{this.props.description}</span>
+            <div className="card-title">{this.props.title}</div>
+            <div className="card-description">{this.props.description}</div>
         </div>;
     }
 }
