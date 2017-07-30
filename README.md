@@ -1,5 +1,7 @@
 # Susi Magic Mirror Module
 
+[![Build Status](https://travis-ci.org/fossasia/MMM-SUSI-AI.svg?branch=master)](https://travis-ci.org/fossasia/MMM-SUSI-AI)
+
 SUSI.AI Module for Magic Mirror Project
 
 This project aims at creating a Magic Mirror Module to provide intelligent answers via Susi directly on your Magic Mirror.
