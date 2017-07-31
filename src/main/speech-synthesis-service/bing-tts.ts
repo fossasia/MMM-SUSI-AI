@@ -23,7 +23,6 @@ export class BingTTS extends TTS {
     public synthesizeSpeech(text: string): Promise<boolean> {
         return this.issueToken().then((token) => {
             this.accessToken = token;
-            console.log(token);
             const voice = "Microsoft Server Speech Text to Speech Voice (en-US, ZiraRUS)";
 
             const ssml = `<speak version='1.0' xml:lang='en-us'>

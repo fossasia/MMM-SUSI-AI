@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import {Subscription} from "rxjs/Subscription";
+import {isUndefined} from "util";
 
 import {TTSService} from "../speech-synthesis-service/tts-service";
 import {ChatAPI} from "../susi-api";
@@ -23,7 +24,7 @@ export class BusyState extends State {
 
         // This is my API key
         // TODO: Add API key parameter to config
-        const subscriptionKey = "bae76dc848f043a0b52a2c9c36fbaa33";
+        const subscriptionKey = "e83907d9521644a594d532a9f3ec307f";
 
         this.components.recognitionService.recognizeBing(subscriptionKey, readStream).then((text) => {
             console.log("You said: " + text);
@@ -37,7 +38,10 @@ export class BusyState extends State {
                 );
             }
             this.chatAPI.askSusi(text).then((answer: any) => {
-                const expression = answer.answers[0].actions[0].expression;
+                let expression = answer.answers[0].actions[0].expression;
+                if (isUndefined(expression)) {
+                    expression = "";
+                }
                 const filteredText = this.removeLinks(expression);
                 this.ttsService.speakBing(subscriptionKey, filteredText).then(() => {
                     this.components.rendererSend("speak", {susiResponse: answer});
