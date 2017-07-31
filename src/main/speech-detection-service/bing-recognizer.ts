@@ -50,9 +50,7 @@ export class BingRecognizer {
                 return new Promise<string>((resolve, reject) => {
                     rp(options)
                         .then((response) => {
-                                console.log(response);
                                 const recognitionResponse: IBingRecognitionResult = JSON.parse(response);
-                                console.log(recognitionResponse);
                                 if (recognitionResponse.RecognitionStatus === "InitialSilenceTimeout" ||
                                     recognitionResponse.RecognitionStatus === "NoMatch") {
                                     return reject("Recognition Error");

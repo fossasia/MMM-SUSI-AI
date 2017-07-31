@@ -6,6 +6,7 @@ import * as ReactDOM from "react-dom";
 import {MapView} from "./components/map-view";
 import {IRssProps} from "./components/rss-card";
 import {RSSFeed} from "./components/rss-feed";
+import {TableView} from "./components/table-view";
 
 export class ResponseUI {
 
@@ -60,6 +61,12 @@ export class ResponseUI {
                 const rssDiv = document.createElement("rssDiv");
                 this.mainDiv.appendChild(rssDiv);
                 ReactDOM.render(<RSSFeed feeds={rssFeeds}/>, rssDiv);
+
+            } else if (action.type === "table") {
+                const tableData = this.getTableData(susiResponse.answers[0].data, action.columns);
+                const tableDiv = document.createElement("tableDiv");
+                this.mainDiv.appendChild(tableDiv);
+                ReactDOM.render(<TableView data={tableData} columns={action.columns}/>, tableDiv);
             }
         }
     }
@@ -73,6 +80,19 @@ export class ResponseUI {
     private getRSSFeed(data: Array<any>): Array<IRssProps> {
         return data.map((datum) => {
             return {title: datum.title, description: datum.description, link: datum.link};
+        });
+    }
+
+    private getTableData(data: Array<any>, columns: any): Array<any> {
+        const allowed = Object.keys(columns);
+        console.log("allowed", allowed);
+        return data.map((datum) => {
+            return Object.keys(datum)
+                .filter((key) => allowed.includes(key))
+                .reduce((obj, key) => {
+                    obj[key] = datum[key];
+                    return obj;
+                }, {});
         });
     }
 

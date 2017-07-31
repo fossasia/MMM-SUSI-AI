@@ -40,6 +40,21 @@
     justify-content: center;
 }
 
+.table-element-div {
+    font-size: 20px;
+    font-weight: 400;
+    border: 1px solid white;
+    display: table;
+    width: 100%;
+}
+
+.table-element-div > * {
+    padding: 5px;
+    width: 33.33%;
+    display: table-cell;
+    text-align: left;
+}
+
 .map-div {
     width: 400px;
     height: 400px;
@@ -66,8 +81,8 @@
     display: -webkit-box;
     font-size: 20px;
     font-weight: bold;
-    line-height: 22px;     /* fallback */
-    max-height: 44px;      /* fallback */
+    line-height: 22px; /* fallback */
+    max-height: 44px; /* fallback */
     -webkit-line-clamp: 2; /* number of lines to show */
     -webkit-box-orient: vertical;
 }
@@ -79,8 +94,8 @@
     display: -webkit-box;
     font-size: 16px;
     font-weight: 300;
-    line-height: 20px;     /* fallback */
-    max-height: 60px;      /* fallback */
+    line-height: 20px; /* fallback */
+    max-height: 60px; /* fallback */
     -webkit-line-clamp: 3; /* number of lines to show */
     -webkit-box-orient: vertical;
 }
