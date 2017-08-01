@@ -45,16 +45,19 @@ export class BusyState extends State {
                 const filteredText = this.removeLinks(expression);
                 this.ttsService.speakBing(subscriptionKey, filteredText).then(() => {
                     this.components.rendererSend("speak", {susiResponse: answer});
+                }).catch((error: Error) => {
+                    this.components.rendererSend("error", null);
                 });
             });
         }).catch((error) => {
-            console.log(error);
             if (error === "Recognition Error") {
                 const errorMessage = "Sorry! I couldn't recognize. Please try again";
                 this.ttsService.speakBing(subscriptionKey, errorMessage).then((val) => {
                     console.log(val);
                     this.components.rendererSend("speak", {text: errorMessage});
                 });
+            } else {
+                this.components.rendererSend("error", null);
             }
         });
 
