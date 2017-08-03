@@ -29,7 +29,7 @@ export class ResponseUI {
     public update(susiResponse: any): void {
         this.clear();
 
-        if (susiResponse == null) {
+        if (susiResponse === null) {
             this.mainDiv.className = "thin bright";
             const node = document.createTextNode("Sorry! I couldn't recognize. Please try again.");
             this.mainDiv.appendChild(node);
@@ -69,6 +69,13 @@ export class ResponseUI {
                 ReactDOM.render(<TableView data={tableData} columns={action.columns}/>, tableDiv);
             }
         }
+    }
+
+    public showError(): void {
+        this.clear();
+        this.mainDiv.className = "thin bright";
+        const node = document.createTextNode("There seems to be some problem. Ask me later.");
+        this.mainDiv.appendChild(node);
     }
 
     public clear(): void {

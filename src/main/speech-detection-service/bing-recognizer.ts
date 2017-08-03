@@ -62,7 +62,6 @@ export class BingRecognizer {
                             return reject(error);
                         });
                 });
-
             });
     }
 
@@ -86,7 +85,7 @@ export class BingRecognizer {
                     return resolve(token);
                 })
                 .catch((error: Error) => {
-                    console.log(error);
+                    return reject(error);
                 });
 
         });

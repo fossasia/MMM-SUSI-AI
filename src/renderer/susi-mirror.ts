@@ -47,6 +47,9 @@ export class SusiMirror {
                 this.visualizer.setMode("speak");
                 this.responseUI.update(payload.susiResponse);
                 break;
+            case "error":
+                this.responseUI.showError();
+                this.speakError();
         }
     }
 
@@ -60,6 +63,14 @@ export class SusiMirror {
 
     public speaking(): void {
         const sound = new Audio("/output.wav");
+        sound.play();
+        sound.addEventListener("ended", () => {
+            this.mainSend("finishedSpeaking", {});
+        });
+    }
+
+    private speakError(): void {
+        const sound = new Audio("/problem.wav");
         sound.play();
         sound.addEventListener("ended", () => {
             this.mainSend("finishedSpeaking", {});

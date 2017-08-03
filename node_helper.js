@@ -18,12 +18,19 @@ module.exports = NodeHelper.create({
             const path = `${process.env.CWD}/temp/output.wav`;
 
             if (!fs.existsSync(path)) {
-                const rstream = fs.createReadStream(`${process.env.CWD}/resources/problem.wav`);
+                const rstream = fs.createReadStream(`${process.env.CWD}/resources/problem.mp3`);
                 rstream.pipe(res);
                 return;
             }
 
             const rstream = fs.createReadStream(path);
+            rstream.pipe(res);
+        });
+
+        this.expressApp.get("/problem.wav", function (req, res) {
+            res.setHeader("Expires", new Date().toUTCString());
+
+            const rstream = fs.createReadStream(`${process.env.CWD}/resources/problem.mp3`);
             rstream.pipe(res);
         });
     },

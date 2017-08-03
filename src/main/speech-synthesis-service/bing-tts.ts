@@ -4,8 +4,7 @@
 import * as fs from "fs";
 import * as request from "request";
 import * as rp from "request-promise";
-import { TTS } from "./tts";
-
+import {TTS} from "./tts";
 export class BingTTS extends TTS {
 
     private BING_SPEECH_TOKEN_ENDPOINT = "https://api.cognitive.microsoft.com/sts/v1.0/issueToken";
@@ -49,6 +48,9 @@ export class BingTTS extends TTS {
                     .pipe(fs.createWriteStream(`${process.env.CWD}/temp/output.wav`))
                     .on("finish", () => {
                         resolve(true);
+                    })
+                    .on("error", (error) => {
+                        reject(error);
                     });
             });
         });
@@ -71,7 +73,7 @@ export class BingTTS extends TTS {
                     return resolve(token);
                 })
                 .catch((error: Error) => {
-                    console.log(error);
+                    return reject(error);
                 });
 
         });
